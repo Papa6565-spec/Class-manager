@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="km">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Class Manager — កម្មវិធីគ្រប់គ្រងថ្នាក់រៀន</title>
+
+  <!-- Mobile & iOS PWA Viewport Configuration -->
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="description"
+    content="កម្មវិធីគ្រប់គ្រងថ្នាក់រៀន ចុះវត្តមាន និងកត់ត្រាការបង់ប្រាក់ ដំណើរការលើ iPhone និង Android ភ្ជាប់ Google Sheets">
+  <meta name="theme-color" content="#1e3a8a">
+
+  <!-- Apple iOS Web App Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Class Manager">
+
+  <!-- Icons & Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Top App Header -->
+  <header id="app-header" class="header-bar">
+    <div class="header-inner">
+      <div class="header-brand" onclick="App.navigateTo('dashboard')" style="cursor: pointer;">
+        <div class="header-logo">🎓</div>
+        <div class="header-titles">
+          <h1 class="header-app-name">Class Manager</h1>
+          <span id="header-date-text" class="header-date-badge">កំពុងផ្ទុកកាលបរិច្ឆេទ...</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Online/Offline Badge -->
+        <span id="network-badge" class="network-badge badge-online">
+          <span class="status-dot"></span> Online
+        </span>
+
+        <!-- Refresh Button -->
+        <button id="btn-refresh" class="header-icon-btn" onclick="App.refreshCurrentView()" title="ទាញយកទិន្នន័យថ្មី">
+          🔄
+        </button>
+
+        <!-- Theme Toggle Button -->
+        <button id="btn-theme" class="header-icon-btn" onclick="App.toggleTheme()" title="ប្តូរពន្លឺ / ងងឹត">
+          🌙
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container (SPA Router Views) -->
+  <main class="main-content">
+    <!-- View 1: Dashboard -->
+    <section id="view-dashboard" class="view-page active"></section>
+
+    <!-- View 2: Students Management -->
+    <section id="view-students" class="view-page"></section>
+
+    <!-- View 3: Classes Management -->
+    <section id="view-classes" class="view-page"></section>
+
+    <!-- View 4: Attendance Taking & Summary -->
+    <section id="view-attendance" class="view-page"></section>
+
+    <!-- View 5: Payments Recording & History -->
+    <section id="view-payments" class="view-page"></section>
+
+    <!-- View 6: More & Settings -->
+    <section id="view-more" class="view-page"></section>
+  </main>
+
+  <!-- Fixed Bottom Navigation for iPhone & Mobile -->
+  <nav id="app-bottom-nav" class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <button class="nav-item active" data-target="dashboard">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">ទំព័រដើម</span>
+      </button>
+
+      <button class="nav-item" data-target="students">
+        <span class="nav-icon">👨‍🎓</span>
+        <span class="nav-label">សិស្ស</span>
+      </button>
+
+      <button class="nav-item" data-target="attendance">
+        <span class="nav-icon">✅</span>
+        <span class="nav-label">វត្តមាន</span>
+      </button>
+
+      <button class="nav-item" data-target="payments">
+        <span class="nav-icon">💰</span>
+        <span class="nav-label">បង់ប្រាក់</span>
+      </button>
+
+      <button class="nav-item" data-target="more">
+        <span class="nav-icon">☰</span>
+        <span class="nav-label">ផ្សេងៗ</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Global Modal Dialog (Bottom-sheet on iOS) -->
+  <div id="global-modal-overlay" class="modal-overlay" onclick="if(event.target === this) App.closeModal();">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 id="modal-title" class="modal-title">ចំណងជើង</h3>
+        <button class="modal-close-btn" onclick="App.closeModal()">✕</button>
+      </div>
+      <div id="modal-body" class="modal-body">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Global Loading Indicator -->
+  <div id="global-loading-overlay" class="loading-overlay">
+    <div class="loading-card">
+      <div class="spinner"></div>
+      <span id="loading-text" class="loading-text">កំពុងទាញយកទិន្នន័យ...</span>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Application Logic Modules -->
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/students.js"></script>
+  <script src="js/classes.js"></script>
+  <script src="js/attendance.js"></script>
+  <script src="js/payments.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
